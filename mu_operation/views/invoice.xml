@@ -1,0 +1,44 @@
+<odoo>
+
+    <record id="view_move_inherit_mu_operation_form" model="ir.ui.view">
+        <field name="name">account.move.mu.operations.inherit.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">-->
+<!--                <field name="cust_po_no" optional="show"/>-->
+<!--                <field name="cust_po_item" optional="show"/>-->
+<!--                <field name="mpn" optional="show"/>-->
+<!--            </xpath>-->
+
+            <xpath expr="//page[@id='other_tab']/group/group/field[@name='invoice_incoterm_id']" position="after">
+            	<field name="incoterm_country_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_reference']" position="after">
+            	<field name="is_dropship"/>
+            </xpath>
+
+<!--            <xpath expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='sequence']" position="after">-->
+<!--                <field name="cust_po_no" invisible="1"/>-->
+<!--                <field name="cust_po_item" invisible="1"/>-->
+<!--                <field name="mpn" invisible="1"/>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_invoice_form_l10n_sg_inherit_operation" model="ir.ui.view">
+        <field name="name">account.move.l10n_sg.operations.inherit.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_sg.view_invoice_form_l10n_sg"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_sg_permit_number_date']" position="after">
+                <field name="sgd_exchange_rate"/>
+            </xpath>
+        </field>
+    </record>
+
+	
+
+
+</odoo>

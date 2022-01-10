@@ -1,0 +1,24 @@
+<odoo>
+	<record id="view_partner_inherit_mu_operation_form" model="ir.ui.view">
+        <field name="name">res.partner.mu_operation.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//div[@name='button_box']/button[1]" position="before">
+        		<button class="oe_stat_button" type="object" name="get_delivery_status" icon="fa-boxes"
+						attrs="{'invisible':[('customer_rank','&lt;=',0)]}">
+	            	<field string="Delivery Status" name="delivery_status_count" widget="statinfo"/>
+	            </button>
+	            <button class="oe_stat_button" type="object" name="get_grn_status" icon="fa-boxes"
+	            	attrs="{'invisible':[('supplier_rank','&lt;=',0)]}">
+	            	<field string="GRN" name="grn_status_count" widget="statinfo"/>
+	            </button>
+        	</xpath>
+        	<xpath expr="//page[@name='sales_purchases']//group[@name='misc']" position="inside">
+        		<field name="supplier_rank" invisible="1"/>
+				<field name="customer_rank" invisible="1"/>
+        	</xpath>
+        	
+		</field>
+	</record>
+</odoo>

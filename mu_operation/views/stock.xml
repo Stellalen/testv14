@@ -1,0 +1,94 @@
+<odoo>
+
+    <record id="stock_view_picking_form_extension" model="ir.ui.view">
+        <field name="name">stock.picking.form.extension</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[@name='operations']//field[@name='product_uom_qty']" position="after">
+                <field name="ship_unit_value" optional="hide"/>
+                <field name="ship_line_total" optional="hide"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='location_dest_id']" position="after">
+            	<field name="reference" string="Reference"/>
+            </xpath>
+<!--            <xpath expr="//notebook//page[@name='operations']//button[@name='action_put_in_pack']" position="after">-->
+<!--                <group name="note_group" col="6" class="mt-2 mt-md-0">-->
+<!--                    <group class="oe_subtotal_footer oe_right" colspan="2" name="ship_total">-->
+<!--                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">-->
+<!--                            <label for="ship_total"/>-->
+<!--                        </div>-->
+<!--                        <field name="ship_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>-->
+<!--                    </group>-->
+<!--                </group>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+	<record id="stock_vpicktree_mu_operation_extension" model="ir.ui.view">
+        <field name="name">stock.picking.tree.mu_operation.extension</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='name']" position="after">
+        		<field name="reference" optional="hide"/>
+        	</xpath>
+        </field>
+    </record>
+    
+	<record id="view_picking_internal_search_mu_operation_extension" model="ir.ui.view">
+        <field name="name">stock.picking.search.mu_operation.extension</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='origin']" position="after">
+        		<field name="reference"/>
+        	</xpath>
+        </field>
+    </record>
+    
+    
+	
+
+    <record id="view_stock_move_forecast_delivery_tree" model="ir.ui.view">
+        <field name="name">view.stock.move.delivery.forecast.tree</field>
+        <field name="model">stock.move</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree string="Delivery Report" decoration-muted="state == 'cancel'" default_order="date, picking_id, sequence" create="0">
+                <field name="date" optional="show"/>
+                <field name="date_deadline" optional="hide"/>
+                <field name="picking_id" string="Reference" invisible="1"/>
+                <field name="sequence" invisible="1"/>
+                <field name="origin" optional="show"/>
+                <field name="product_id"/>
+                <button name="action_show_product" type="object" string="Product" class="btn-secondary"/>
+                <button name="action_show_picking" type="object" string="Delivery" class="btn-secondary"/>
+                <field name="product_uom_qty"/>
+                <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                <field name="qty_in_transit" optional="show"/>
+                <field name="qty_available" optional="show"/>
+                <field name="incoming_qty" optional="show"/>
+                <field name="outgoing_qty" optional="show"/>
+                <field name="location_id" options="{'no_create': True}" invisible="1"/>
+                <field name="location_dest_id" invisible="1"/>
+                <field name="create_date" invisible="1"/>
+                <field name="state" optional="show"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="mu_operation_quality_check_view_form" model="ir.ui.view">
+        <field name="name">quality_check_view_form</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="mu_quality.quality_check_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty']" position="after">
+                <field name="reference"/>
+            </xpath>
+        </field>
+    </record>
+    
+
+</odoo>

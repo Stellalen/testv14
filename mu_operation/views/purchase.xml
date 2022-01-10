@@ -1,0 +1,24 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase order maymizu</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="coo_id" string="COO" options="{'no_quick_create':True,'no_create_edit':True}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
+                <field name="coo_id" options="{'no_quick_create':True,'no_create_edit':True}"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="after">
+                <field name="qty_remaining" string="Remaining" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

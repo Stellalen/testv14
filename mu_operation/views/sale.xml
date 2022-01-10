@@ -1,0 +1,67 @@
+<odoo>
+
+    <record id="view_order_inherit_operation_form" model="ir.ui.view">
+        <field name="name">sale.order.inherit.operation.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='sale_header']/group[@name='order_details']/div[3]/field[@name='pricelist_id']" position="attributes">
+                <attribute name="domain">['|', ('partner_id', '=', False), ('partner_id', '=', partner_id)]</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/form//field[@name='product_id']" position="after">
+                <field name="cpo_line_no"/>
+                <field name="cpn"/>
+                <field name="mpn"/>
+                <field name="coo_id"/>
+            </xpath>
+			<xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+				<field name="cpo_line_no" class="text-center"/>
+			</xpath>
+			<xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']" position="before">
+				<field name="cpn" string="CPN" optional="show"/>
+                <field name="mpn" optional="show"/>
+                <field name="coo_id"/>
+			</xpath>
+			<xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='qty_delivered']" position="after">
+				<field name="qty_remaining" decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')" 
+					string="Remaining" optional="show"/>
+			</xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_inherit_sale_stock_operation" model="ir.ui.view">
+        <field name="name">sale.order.inherit.operation.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='incoterm']" position="after">
+        		<field name="incoterm_country_id"/>
+        	</xpath>
+        </field>
+    </record>
+    
+    <record id="view_quotation_inherit_mu_operation_tree" model="ir.ui.view">
+        <field name="name">sale.quotation.inherit.mu.operation.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='partner_id']" position="after">
+        		<field name="client_order_ref" optional="hide"/>
+        	</xpath>
+        </field>
+    </record>
+    
+    <record id="view_order_inherit_mu_operation_tree" model="ir.ui.view">
+        <field name="name">sale.order.inherit.mu.operation.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='partner_id']" position="after">
+        		<field name="client_order_ref" optional="hide"/>
+        	</xpath>
+        </field>
+    </record>
+
+</odoo>
