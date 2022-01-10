@@ -12,7 +12,7 @@ Customisation for Operational data
     """,
     'author': 'Alitec Pte Ltd',
     'license': 'LGPL-3',
-    'depends': ['sale', 'purchase', 'mu_pricelist', 'stock', 'mu_stock', 'mu_quality',
+    'depends': ['sale', 'purchase','stock',
                 ],
     'data': [
         'data/email_template.xml',
